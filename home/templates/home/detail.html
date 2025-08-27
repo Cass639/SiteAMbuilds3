@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_content %}
+<link rel="stylesheet" href="{% static 'home/css/detail.css' %}">
+<div class="detail-container">
+    <div class="detail-breadcrumb">
+        <a href=""><i class="fas fa-arrow-left"></i></a>
+        <span>Você está em: <strong>Promoções</strong></span>
+    </div>
+    <div class="detail-main">
+        <div class="detail-img-side">
+            <h2>{{ produto.nome }}</h2>
+            <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" class="detail-img">
+            <div class="detail-carousel-dots">
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="detail-info-side">
+            <div class="detail-seller">
+                Vendido e entregue por: <strong>{{ produto.loja }}</strong>
+            </div>
+            <div class="detail-price">
+                <p class="preco-normal">{{ produto.preco_normal_formatado }}</p>
+                <p class="preco-desconto">{{ produto.preco_desconto_formatado }}</p>
+            </div>
+            <span>
+                DESCRICAO:
+            </span>
+            <p class="detail-list">
+                {{ produto.descricao }}
+            </p>
+            {% if produto.cupom %}
+            <span>
+                Cupom: {{ produto.cupom }}
+            </span>
+            {% endif %}
+            <a href="{{ produto.link }}" target="_blank" class="detail-btn">
+                <i class="fas fa-shopping-cart"></i> REDIRECIONAR
+            </a>
+        </div>
+    </div>
+    <hr>
+    <div class="detail-related-title">
+        <i class="fas fa-tags"></i> PRODUTOS RELACIONADOS
+    </div>
+    <div class="detail-related-list">
+        {% for produto in produtos_relacionado %}
+        <div class="produto">
+            <a class="produto-details" href="#">
+                {% if produto.imagem %}
+                <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+                {% else %}
+                <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
+                {% endif %}
+
+                <p class="nome-produto">{{ produto.nome }}</p>
+                <p class="preco-normal">{{ produto.preco_normal_formatado }}</p>
+                <p class="preco-desconto">{{ produto.preco_desconto_formatado }}</p>
+            </a>
+            <a class="btn-redirecionar" href="{% url 'detail' produto.pk %}">
+                <i class="fas fa-shopping-cart text-light"></i>
+                REDIRECIONAR
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

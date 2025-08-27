@@ -1,0 +1,202 @@
+:root {
+    --light-blue: #2C5497;
+    --dark: #1E2A38;
+}
+
+/* NAVBAR PRINCIPAL */
+.navbar-ambuilds {
+    background-color: var(--dark);
+    border-bottom: 2px solid var(--light-blue);
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 15px 20px;
+}
+
+/* CONTAINER DA NAV */
+.divNav {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    z-index: 2;
+}
+
+/* LOGO E MENU */
+.btn_Logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.list_icon {
+    width: 40px;    
+}
+
+.menu-list {
+    display: none;
+    position: absolute;
+    top: 130px; /* ajuste conforme necessário */
+    left: 0px;
+    background: var(--dark);
+    width: 192px;
+    height: 100vh;
+    padding: 15px 20px;
+    list-style: none;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    color: #fff;
+    text-decoration: none;
+    gap: 10px;
+    padding: 10px 0px;
+}
+
+.menu-img {
+    width: 28px;
+}
+
+.menu-list li {
+    margin-bottom: 10px;
+}
+
+.menu-list li:last-child {
+    margin-bottom: 0;
+}
+
+.menu-list a:hover {
+    text-decoration: underline;
+}
+
+.right_text {
+    color: #fff;
+    margin-left: -5px;
+}
+
+.logo {
+    width: 100px;
+}
+
+/* PESQUISA E BOTÕES */
+.search_btns {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    /* ocupa espaço flexível */
+    margin: 0 20px;
+    margin-top: 20px;
+}
+
+/* BOTÕES PILLS */
+.btnPill {
+    margin-top: 10px;
+    display: flex;
+    background-color: var(--light-blue);
+    padding: 5px 30px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+/* CONTAINER DOS BOTÕES */
+.barBtn {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+}   
+
+.login_redirect {
+    display: flex;
+    align-items: center;
+    color: white;
+    margin-right: 10px;
+}
+
+.right_icon {
+    display: flex;
+    color: #fff;
+    font-size: 2rem;
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: #0F1D33;
+    width: 100vw;
+    height: 350px;
+    gap: 10px 20px;
+    padding: 0px 50px;
+}
+
+.footer-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px #bad1e2;
+    width: 100px;
+    height: 40px;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    gap: 5px;
+    z-index: 2;
+}
+
+/* ---------- RESPONSIVIDADE ---------- */
+
+/* TELAS MENORES (TABLET E CELULAR) */
+@media (max-width: 992px) {
+    .divNav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .list_icon {
+        width: 30px;
+    }
+
+    .logo {
+        width: 60px;
+    }
+
+    .search_btns {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .barBtn {
+        justify-content: flex-start;
+    }
+}
+
+/* CELULARES BEM PEQUENOS */
+@media (max-width: 600px) {
+    .btnPill {
+        font-size: 0.7rem;
+        padding: 5px 10px;
+    }
+
+    .search_btns {
+        padding: 0;
+    }
+}
