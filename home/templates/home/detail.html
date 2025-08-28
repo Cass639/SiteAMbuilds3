@@ -3,36 +3,48 @@
 
 {% block page_content %}
 <link rel="stylesheet" href="{% static 'home/css/detail.css' %}">
+<link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+
 <div class="detail-container">
     <div class="detail-breadcrumb">
-        <a href=""><i class="fas fa-arrow-left"></i></a>
-        <span>Você está em: <strong>Promoções</strong></span>
+        <button onclick="window.history.back()"><i class="fas fa-arrow-left"></i></button>
+        <span>
+            Você está em:
+            <a href="{% url 'category' produto_especifico.tipoDeProduto|slugify %}">
+                <strong>{{ produto_especifico.tipoDeProduto }}</strong>
+            </a>
+            &nbsp;>&nbsp;
+            <strong>{{ produto_especifico.nome }}</strong>
+        </span>
     </div>
     <div class="detail-main">
         <div class="detail-img-side">
-            <h2>{{ produto.nome }}</h2>
-            <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" class="detail-img">
-            <div class="detail-carousel-dots">
-                <span></span><span></span><span></span><span></span><span></span>
+            <h2>{{ produto_especifico.nome }}</h2>
+            <div class="detail-img-zoom" id="zoom-container">
+                <img src="{{ produto_especifico.imagem.url }}" alt="{{ produto_especifico.nome }}" class="detail-img"
+                    id="zoom-img">
             </div>
         </div>
         <div class="detail-info-side">
             <div class="detail-seller">
-                Vendido e entregue por: <strong>{{ produto.loja }}</strong>
+                Vendido e entregue por: <strong>{{ produto_especifico.loja }}</strong>
             </div>
             <div class="detail-price">
-                <p class="preco-normal">{{ produto.preco_normal_formatado }}</p>
-                <p class="preco-desconto">{{ produto.preco_desconto_formatado }}</p>
+                <p class="detail-preco-normal">{{ produto_especifico.preco_normal_formatado }}</p>
+                <p class="detail-preco-desconto">{{ produto_especifico.preco_desconto_formatado }}</p>
+                <span class="detail-porcentagem-desconto">-{{ produto_especifico.desconto }}% OFF</span>
             </div>
+            <div class="description">
+                <span>
+                    Descrição:
+                </span>
+                <p class="detail-list">
+                    {{ produto_especifico.descricao }}
+                </p>
+            </div>
+            {% if produto_especifico.cupom %}
             <span>
-                DESCRICAO:
-            </span>
-            <p class="detail-list">
-                {{ produto.descricao }}
-            </p>
-            {% if produto.cupom %}
-            <span>
-                Cupom: {{ produto.cupom }}
+                Cupom: {{ produto_especifico.cupom }}
             </span>
             {% endif %}
             <a href="{{ produto.link }}" target="_blank" class="detail-btn">
@@ -45,25 +57,71 @@
         <i class="fas fa-tags"></i> PRODUTOS RELACIONADOS
     </div>
     <div class="detail-related-list">
-        {% for produto in produtos_relacionado %}
-        <div class="produto">
-            <a class="produto-details" href="#">
-                {% if produto.imagem %}
-                <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
-                {% else %}
-                <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
-                {% endif %}
+        <div class="section" id="relacionados-scroll">
+            <button class="scroll-btn left" data-target="relacionados-scroll">
+                <img class="arrow" src="{% static 'home/img/arrow-left-circle.svg' %}" alt="setinha">
+            </button>
+            {% for produto in produtos_relacionado %}
+            <div class="produto">
+                <a class="produto-details" href="#">
+                    <div class="img-container">
+                        {% if produto.imagem %}
+                        <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+                        {% else %}
+                        <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
+                        {% endif %}
+                        <span class="porcentagem-desconto">-{{ produto.desconto }}% OFF</span>
+                    </div>
 
-                <p class="nome-produto">{{ produto.nome }}</p>
-                <p class="preco-normal">{{ produto.preco_normal_formatado }}</p>
-                <p class="preco-desconto">{{ produto.preco_desconto_formatado }}</p>
-            </a>
-            <a class="btn-redirecionar" href="{% url 'detail' produto.pk %}">
-                <i class="fas fa-shopping-cart text-light"></i>
-                REDIRECIONAR
-            </a>
+                    <p class="nome-produto">{{ produto.nome }}</p>
+                    <p class="preco-normal">{{ produto.preco_normal_formatado }}</p>
+                    <p class="preco-desconto">{{ produto.preco_desconto_formatado }}</p>
+                </a>
+                <a class="btn-redirecionar" href="{% url 'detail' produto.tipoDeProduto|slugify produto.pk %}">
+                    <i class="fas fa-shopping-cart text-light"></i>
+                    REDIRECIONAR
+                </a>
+            </div>
+            {% endfor %}
+            <button class="scroll-btn right" data-target="relacionados-scroll">
+                <img class="arrow" src="{% static 'home/img/arrow-right-circle.svg' %}" alt="setinha">
+            </button>
         </div>
-        {% endfor %}
     </div>
-</div>
-{% endblock %}
+    <script>
+        const zoomContainer = document.getElementById('zoom-container');
+        const zoomImg = document.getElementById('zoom-img');
+
+        zoomContainer.addEventListener('mousemove', function (e) {
+            const rect = zoomContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left; // posição X do mouse dentro do container
+            const y = e.clientY - rect.top;  // posição Y do mouse dentro do container
+
+            const xPercent = x / rect.width * 100;
+            const yPercent = y / rect.height * 100;
+
+            zoomImg.style.transformOrigin = `${xPercent}% ${yPercent}%`;
+            zoomImg.style.transform = "scale(2)";
+        });
+
+        zoomContainer.addEventListener('mouseleave', function () {
+            zoomImg.style.transformOrigin = "center center";
+            zoomImg.style.transform = "scale(1)";
+        });
+    </script>
+
+    <script>
+        document.querySelectorAll('.scroll-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const targetId = btn.getAttribute('data-target');
+                const scrollContainer = document.getElementById(targetId);
+                if (!scrollContainer) return;
+                const direction = btn.classList.contains('left') ? -200 : 200;
+                scrollContainer.scrollBy({
+                    left: direction,
+                    behavior: "smooth"
+                });
+            });
+        });
+    </script>
+    {% endblock %}

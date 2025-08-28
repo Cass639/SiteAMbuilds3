@@ -3,11 +3,31 @@ from home.models import Produto
 
 # Create your views here.
 
+def calcular_desconto(produto):
+    try:
+        preco_normal = float(produto.precoNormal)
+        preco_desconto = float(produto.precoDesconto)
+        if preco_normal > 0 and preco_desconto < preco_normal:
+            return round(((preco_normal - preco_desconto) / preco_normal) * 100)
+        else:
+            return 0
+    except (ValueError, TypeError):
+        return 0
+
+
 def index(request):
 
     produtos_novos = Produto.objects.all().order_by('-id')[:10]
     produtos_random = Produto.objects.order_by('?')[:10]
     modelos_pc = Produto.objects.filter(tipoDeProduto="PC Gamer").order_by('-id')[:10]
+
+    for produto in produtos_novos:
+        produto.desconto = calcular_desconto(produto)
+    for produto in produtos_random:
+        produto.desconto = calcular_desconto(produto)
+    for produto in modelos_pc:
+        produto.desconto = calcular_desconto(produto)
+
     
     ORDEM_PERSONALIZADA = [
         "Processador", "Placa Mãe", "Memoria RAM", "Placa de Vídeo",
@@ -62,13 +82,20 @@ def index(request):
     
     return render(request, "home/index.html", context)
 
-def detail(request, pk):
-    produto = Produto.objects.get(id=pk)
-    tipo = produto.tipoDeProduto
-    produtos_relacionado = Produto.objects.filter(tipoDeProduto=tipo).order_by('-id')[:10]
+def detail(request, pk, tipo_slug):
+    produto_especifico = Produto.objects.get(id=pk)
+    tipo = produto_especifico.tipoDeProduto
+    produtos_relacionado = Produto.objects.filter(tipoDeProduto=tipo).order_by('-id').exclude(id=produto_especifico.id)
+
+    produto_especifico.desconto = calcular_desconto(produto_especifico)
+    for produto in produtos_relacionado:
+        produto.desconto = calcular_desconto(produto)
 
     context = {
-        "produto": produto,
+        "produto_especifico": produto_especifico,
         "produtos_relacionado": produtos_relacionado,
     }
     return render(request, "home/detail.html", context)
+
+def category(request, tipo_slug):
+    return

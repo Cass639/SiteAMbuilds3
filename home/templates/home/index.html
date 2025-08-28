@@ -55,18 +55,21 @@
             <div class="section" id="novas-scroll">
                 {% for produto in produtos_novos %}
                 <div class="produto">
-                    <a class="produto-details" href="#">
-                        {% if produto.imagem %}
-                        <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
-                        {% else %}
-                        <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
-                        {% endif %}
+                    <a class="produto-details" href="{% url 'detail' produto.tipoDeProduto|slugify produto.pk %}">
+                        <div class="img-container">
+                            {% if produto.imagem %}
+                            <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+                            {% else %}
+                            <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
+                            {% endif %}
+                            <span class="porcentagem-desconto">-{{ produto.desconto }}% OFF</span>
+                        </div>
 
                         <p class="nome-produto">{{ produto.nome }}</p>
                         <p class="preco-normal">{{ produto.preco_normal_formatado }}</p>
                         <p class="preco-desconto">{{ produto.preco_desconto_formatado }}</p>
                     </a>
-                    <a class="btn-redirecionar" href="{% url 'detail' produto.pk %}">
+                    <a class="btn-redirecionar" href="{% url 'detail' produto.tipoDeProduto|slugify produto.pk %}">
                         <i class="fas fa-shopping-cart text-light"></i>
                         REDIRECIONAR
                     </a>
@@ -91,18 +94,21 @@
             <div class="section" id="mais_acessados-scroll">
                 {% for produto in produtos_random %}
                 <div class="produto">
-                    <a class="produto-details" href="#">
-                        {% if produto.imagem %}
-                        <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
-                        {% else %}
-                        <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
-                        {% endif %}
+                    <a class="produto-details" href="{% url 'detail' produto.tipoDeProduto|slugify produto.pk %}">
+                        <div class="img-container">
+                            {% if produto.imagem %}
+                            <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+                            {% else %}
+                            <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
+                            {% endif %}
+                            <span class="porcentagem-desconto">-{{ produto.desconto }}% OFF</span>
+                        </div>
 
                         <p class="nome-produto">{{ produto.nome }}</p>
                         <p class="preco-normal">{{ produto.preco_normal_formatado }}</p>
                         <p class="preco-desconto">{{ produto.preco_desconto_formatado }}</p>
                     </a>
-                    <a class="btn-redirecionar" href="{% url 'detail' produto.pk %}">
+                    <a class="btn-redirecionar" href="{% url 'detail' produto.tipoDeProduto|slugify produto.pk %}">
                         <i class="fas fa-shopping-cart text-light"></i>
                         REDIRECIONAR
                     </a>
@@ -127,18 +133,21 @@
             <div class="section" id="patrocinados-scroll">
                 {% for produto in produtos_random %}
                 <div class="produto">
-                    <a class="produto-details" href="#">
-                        {% if produto.imagem %}
-                        <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
-                        {% else %}
-                        <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
-                        {% endif %}
+                    <a class="produto-details" href="{% url 'detail' produto.tipoDeProduto|slugify produto.pk %}">
+                        <div class="img-container">
+                            {% if produto.imagem %}
+                            <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+                            {% else %}
+                            <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
+                            {% endif %}
+                            <span class="porcentagem-desconto">-{{ produto.desconto }}% OFF</span>
+                        </div>
 
                         <p class="nome-produto">{{ produto.nome }}</p>
                         <p class="preco-normal">{{ produto.preco_normal_formatado }}</p>
                         <p class="preco-desconto">{{ produto.preco_desconto_formatado }}</p>
                     </a>
-                    <a class="btn-redirecionar" href="{% url 'detail' produto.pk %}">
+                    <a class="btn-redirecionar" href="{% url 'detail' produto.tipoDeProduto|slugify produto.pk %}">
                         <i class="fas fa-shopping-cart text-light"></i>
                         REDIRECIONAR
                     </a>
@@ -162,18 +171,21 @@
             <div class="section" id="pcgamer-scroll">
                 {% for produto in modelos_pc %}
                 <div class="produto">
-                    <a class="produto-details" href="#">
-                        {% if produto.imagem %}
-                        <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
-                        {% else %}
-                        <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
-                        {% endif %}
+                    <a class="produto-details" href="{% url 'detail' produto.tipoDeProduto|slugify produto.pk %}">
+                        <div class="img-container">
+                            {% if produto.imagem %}
+                            <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+                            {% else %}
+                            <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
+                            {% endif %}
+                            <span class="porcentagem-desconto">-{{ produto.desconto }}% OFF</span>
+                        </div>
 
                         <p class="nome-produto">{{ produto.nome }}</p>
                         <p class="preco-normal">{{ produto.preco_normal_formatado }}</p>
                         <p class="preco-desconto">{{ produto.preco_desconto_formatado }}</p>
                     </a>
-                    <a class="btn-redirecionar" href="{% url 'detail' produto.pk %}">
+                    <a class="btn-redirecionar" href="{% url 'detail' produto.tipoDeProduto|slugify produto.pk %}">
                         <i class="fas fa-shopping-cart text-light"></i>
                         REDIRECIONAR
                     </a>
