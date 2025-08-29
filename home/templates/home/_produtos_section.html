@@ -1,0 +1,36 @@
+{# filepath: home/templates/home/_produtos_section.html #}
+{% load static %}
+<section class="produtos-wrapper">
+    <a class="section-title" href="#">
+        {{ titulo }}
+    </a>
+    <button class="scroll-btn left" data-target="{{ scroll_id }}">
+        <img class="arrow" src="{% static 'home/img/arrow-left-circle.svg' %}" alt="setinha">
+    </button>
+    <div class="section" id="{{ scroll_id }}">
+        {% for produto in produtos %}
+        <div class="produto">
+            <a class="produto-details" href="{% url 'detail' produto.tipoDeProduto produto.pk %}">
+                <div class="img-container">
+                    {% if produto.imagem %}
+                    <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+                    {% else %}
+                    <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
+                    {% endif %}
+                    <span class="porcentagem-desconto">-{{ produto.desconto }}% OFF</span>
+                </div>
+                <p class="nome-produto">{{ produto.nome }}</p>
+                <p class="preco-normal">{{ produto.preco_normal_formatado }}</p>
+                <p class="preco-desconto">{{ produto.preco_desconto_formatado }}</p>
+            </a>
+            <a class="btn-redirecionar" href="{% url 'detail' produto.tipoDeProduto produto.pk %}">
+                <i class="fas fa-shopping-cart text-light"></i>
+                REDIRECIONAR
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <button class="scroll-btn right" data-target="{{ scroll_id }}">
+        <img class="arrow" src="{% static 'home/img/arrow-right-circle.svg' %}" alt="setinha">
+    </button>
+</section>

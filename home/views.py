@@ -78,14 +78,13 @@ def index(request):
         "categorias": categorias_ordenadas,
         "produtos_random": produtos_random,
         "modelos_pc": modelos_pc
-    }
-    
+    }    
     return render(request, "home/index.html", context)
 
-def detail(request, pk, tipo_slug):
+
+def detail(request, pk, tipoDeProduto):
     produto_especifico = Produto.objects.get(id=pk)
-    tipo = produto_especifico.tipoDeProduto
-    produtos_relacionado = Produto.objects.filter(tipoDeProduto=tipo).order_by('-id').exclude(id=produto_especifico.id)
+    produtos_relacionado = Produto.objects.filter(tipoDeProduto=tipoDeProduto).order_by('-id').exclude(id=produto_especifico.id)
 
     produto_especifico.desconto = calcular_desconto(produto_especifico)
     for produto in produtos_relacionado:
@@ -97,5 +96,15 @@ def detail(request, pk, tipo_slug):
     }
     return render(request, "home/detail.html", context)
 
-def category(request, tipo_slug):
-    return
+
+def category(request, tipoDeProduto):
+    produtos = Produto.objects.filter(tipoDeProduto=tipoDeProduto).order_by('-id')
+
+    for produto in produtos:
+        produto.desconto = calcular_desconto(produto)
+
+    context = {
+        "tipo": tipoDeProduto,
+        "produtos": produtos,
+    }
+    return render(request, "home/category.html", context)

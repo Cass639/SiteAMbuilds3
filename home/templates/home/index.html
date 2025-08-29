@@ -20,10 +20,10 @@
         </div>
 
         <div class="components-wrapper">
-            <a class="components-title" href="#">
+            <span class="components-title">
                 CATEGORIAS
                 <img class="arrow" src="{% static 'home/img/arrow-right-circle.svg' %}" alt="setinha">
-            </a>
+            </span>
 
             <button class="scroll-btn left" data-target="components-scroll">
                 <img class="arrow" src="{% static 'home/img/arrow-left-circle.svg' %}" alt="setinha">
@@ -31,7 +31,7 @@
 
             <div class="components" id="components-scroll">
                 {% for categoria in categorias %}
-                <a class="categoria" href="#">
+                <a class="categoria" href="{% url 'category' categoria.nome %}">
                     <img src="{{ categoria.img }}" alt="{{ categoria.nome }}">
                     <p class="categoria_text">{{ categoria.nome }}</p>
                 </a>
@@ -43,160 +43,10 @@
             </button>
         </div>
 
-        <section class="produtos-wrapper">
-            <a class="section-title" href="#">
-                NOVAS PROMOÇÕES
-            </a>
-
-            <button class="scroll-btn left" data-target="novas-scroll">
-                <img class="arrow" src="{% static 'home/img/arrow-left-circle.svg' %}" alt="setinha">
-            </button>
-
-            <div class="section" id="novas-scroll">
-                {% for produto in produtos_novos %}
-                <div class="produto">
-                    <a class="produto-details" href="{% url 'detail' produto.tipoDeProduto|slugify produto.pk %}">
-                        <div class="img-container">
-                            {% if produto.imagem %}
-                            <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
-                            {% else %}
-                            <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
-                            {% endif %}
-                            <span class="porcentagem-desconto">-{{ produto.desconto }}% OFF</span>
-                        </div>
-
-                        <p class="nome-produto">{{ produto.nome }}</p>
-                        <p class="preco-normal">{{ produto.preco_normal_formatado }}</p>
-                        <p class="preco-desconto">{{ produto.preco_desconto_formatado }}</p>
-                    </a>
-                    <a class="btn-redirecionar" href="{% url 'detail' produto.tipoDeProduto|slugify produto.pk %}">
-                        <i class="fas fa-shopping-cart text-light"></i>
-                        REDIRECIONAR
-                    </a>
-                </div>
-                {% endfor %}
-            </div>
-
-            <button class="scroll-btn right" data-target="novas-scroll">
-                <img class="arrow" src="{% static 'home/img/arrow-right-circle.svg' %}" alt="setinha">
-            </button>
-        </section>
-
-        <section class="produtos-wrapper">
-            <a class="section-title" href="#">
-                MAIS ACESSADOS
-            </a>
-
-            <button class="scroll-btn left" data-target="mais_acessados-scroll">
-                <img class="arrow" src="{% static 'home/img/arrow-left-circle.svg' %}" alt="setinha">
-            </button>
-
-            <div class="section" id="mais_acessados-scroll">
-                {% for produto in produtos_random %}
-                <div class="produto">
-                    <a class="produto-details" href="{% url 'detail' produto.tipoDeProduto|slugify produto.pk %}">
-                        <div class="img-container">
-                            {% if produto.imagem %}
-                            <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
-                            {% else %}
-                            <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
-                            {% endif %}
-                            <span class="porcentagem-desconto">-{{ produto.desconto }}% OFF</span>
-                        </div>
-
-                        <p class="nome-produto">{{ produto.nome }}</p>
-                        <p class="preco-normal">{{ produto.preco_normal_formatado }}</p>
-                        <p class="preco-desconto">{{ produto.preco_desconto_formatado }}</p>
-                    </a>
-                    <a class="btn-redirecionar" href="{% url 'detail' produto.tipoDeProduto|slugify produto.pk %}">
-                        <i class="fas fa-shopping-cart text-light"></i>
-                        REDIRECIONAR
-                    </a>
-                </div>
-                {% endfor %}
-            </div>
-
-            <button class="scroll-btn right" data-target="mais_acessados-scroll">
-                <img class="arrow" src="{% static 'home/img/arrow-right-circle.svg' %}" alt="setinha">
-            </button>
-        </section>
-
-        <section class="produtos-wrapper">
-            <a class="section-title" href="#">
-                PATROCINADOS
-            </a>
-
-            <button class="scroll-btn left" data-target="patrocinados-scroll">
-                <img class="arrow" src="{% static 'home/img/arrow-left-circle.svg' %}" alt="setinha">
-            </button>
-
-            <div class="section" id="patrocinados-scroll">
-                {% for produto in produtos_random %}
-                <div class="produto">
-                    <a class="produto-details" href="{% url 'detail' produto.tipoDeProduto|slugify produto.pk %}">
-                        <div class="img-container">
-                            {% if produto.imagem %}
-                            <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
-                            {% else %}
-                            <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
-                            {% endif %}
-                            <span class="porcentagem-desconto">-{{ produto.desconto }}% OFF</span>
-                        </div>
-
-                        <p class="nome-produto">{{ produto.nome }}</p>
-                        <p class="preco-normal">{{ produto.preco_normal_formatado }}</p>
-                        <p class="preco-desconto">{{ produto.preco_desconto_formatado }}</p>
-                    </a>
-                    <a class="btn-redirecionar" href="{% url 'detail' produto.tipoDeProduto|slugify produto.pk %}">
-                        <i class="fas fa-shopping-cart text-light"></i>
-                        REDIRECIONAR
-                    </a>
-                </div>
-                {% endfor %}
-            </div>
-
-            <button class="scroll-btn right" data-target="patrocinados-scroll">
-                <img class="arrow" src="{% static 'home/img/arrow-right-circle.svg' %}" alt="setinha">
-            </button>
-        </section>
-
-        <section class="produtos-wrapper">
-            <a class="section-title" href="#">
-                PC GAMERS
-            </a>
-
-            <button class="scroll-btn left" data-target="pcgamer-scroll">
-                <img class="arrow" src="{% static 'home/img/arrow-left-circle.svg' %}" alt="setinha">
-            </button>
-            <div class="section" id="pcgamer-scroll">
-                {% for produto in modelos_pc %}
-                <div class="produto">
-                    <a class="produto-details" href="{% url 'detail' produto.tipoDeProduto|slugify produto.pk %}">
-                        <div class="img-container">
-                            {% if produto.imagem %}
-                            <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
-                            {% else %}
-                            <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
-                            {% endif %}
-                            <span class="porcentagem-desconto">-{{ produto.desconto }}% OFF</span>
-                        </div>
-
-                        <p class="nome-produto">{{ produto.nome }}</p>
-                        <p class="preco-normal">{{ produto.preco_normal_formatado }}</p>
-                        <p class="preco-desconto">{{ produto.preco_desconto_formatado }}</p>
-                    </a>
-                    <a class="btn-redirecionar" href="{% url 'detail' produto.tipoDeProduto|slugify produto.pk %}">
-                        <i class="fas fa-shopping-cart text-light"></i>
-                        REDIRECIONAR
-                    </a>
-                </div>
-                {% endfor %}
-            </div>
-
-            <button class="scroll-btn right" data-target="pcgamer-scroll">
-                <img class="arrow" src="{% static 'home/img/arrow-right-circle.svg' %}" alt="setinha">
-            </button>
-        </section>
+        {% include "home/_produtos_section.html" with titulo="NOVAS PROMOÇÕES" produtos=produtos_novos scroll_id="novas-scroll" %}
+        {% include "home/_produtos_section.html" with titulo="MAIS ACESSADOS" produtos=produtos_random scroll_id="mais_acessados-scroll" %}
+        {% include "home/_produtos_section.html" with titulo="PATROCINADOS" produtos=produtos_random scroll_id="patrocinados-scroll" %}
+        {% include "home/_produtos_section.html" with titulo="PC GAMERS" produtos=modelos_pc scroll_id="pcgamer-scroll" %}
 
 
     </main>

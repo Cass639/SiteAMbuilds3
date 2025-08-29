@@ -8,7 +8,7 @@ class Produto(models.Model):
     descricao = models.TextField(verbose_name='Descrição', blank=True)
     precoNormal = models.FloatField(verbose_name='Preço normal')
     precoDesconto = models.FloatField(verbose_name='Preço com desconto')
-    tipoDeProduto = models.CharField(verbose_name='Tipo de produto')
+    tipoDeProduto = models.SlugField(verbose_name='Tipo de produto')
     cupom = models.CharField(verbose_name='Cupom', blank=True)
     imagem = models.FileField(verbose_name='Imagem',upload_to='imagens_produto', blank=True, max_length=255)
     link = models.TextField(verbose_name='Link')

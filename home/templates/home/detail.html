@@ -10,19 +10,23 @@
         <button onclick="window.history.back()"><i class="fas fa-arrow-left"></i></button>
         <span>
             Você está em:
-            <a href="{% url 'category' produto_especifico.tipoDeProduto|slugify %}">
-                <strong>{{ produto_especifico.tipoDeProduto }}</strong>
-            </a>
-            &nbsp;>&nbsp;
-            <strong>{{ produto_especifico.nome }}</strong>
         </span>
+        <a href="{% url 'category' produto_especifico.tipoDeProduto %}">
+            {{ produto_especifico.tipoDeProduto }}
+        </a>
+        &nbsp;>&nbsp;
+        <span class="span2">{{ produto_especifico.nome }}</span>
     </div>
     <div class="detail-main">
         <div class="detail-img-side">
             <h2>{{ produto_especifico.nome }}</h2>
             <div class="detail-img-zoom" id="zoom-container">
-                <img src="{{ produto_especifico.imagem.url }}" alt="{{ produto_especifico.nome }}" class="detail-img"
+                    {% if produto_especifico.imagem %}
+                     <img src="{{ produto_especifico.imagem.url }}" alt="{{ produto_especifico.nome }}" class="detail-img"
                     id="zoom-img">
+                    {% else %}
+                    <img class="detail-img" src="https://placehold.co/600x400" alt="Sem imagem" id="zoom-img">
+                    {% endif %}
             </div>
         </div>
         <div class="detail-info-side">
@@ -43,51 +47,58 @@
                 </p>
             </div>
             {% if produto_especifico.cupom %}
-            <span>
+            <span class="detail-coupon">
                 Cupom: {{ produto_especifico.cupom }}
             </span>
             {% endif %}
-            <a href="{{ produto.link }}" target="_blank" class="detail-btn">
-                <i class="fas fa-shopping-cart"></i> REDIRECIONAR
-            </a>
-        </div>
-    </div>
-    <hr>
-    <div class="detail-related-title">
-        <i class="fas fa-tags"></i> PRODUTOS RELACIONADOS
-    </div>
-    <div class="detail-related-list">
-        <div class="section" id="relacionados-scroll">
-            <button class="scroll-btn left" data-target="relacionados-scroll">
-                <img class="arrow" src="{% static 'home/img/arrow-left-circle.svg' %}" alt="setinha">
-            </button>
-            {% for produto in produtos_relacionado %}
-            <div class="produto">
-                <a class="produto-details" href="#">
-                    <div class="img-container">
-                        {% if produto.imagem %}
-                        <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
-                        {% else %}
-                        <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
-                        {% endif %}
-                        <span class="porcentagem-desconto">-{{ produto.desconto }}% OFF</span>
-                    </div>
-
-                    <p class="nome-produto">{{ produto.nome }}</p>
-                    <p class="preco-normal">{{ produto.preco_normal_formatado }}</p>
-                    <p class="preco-desconto">{{ produto.preco_desconto_formatado }}</p>
-                </a>
-                <a class="btn-redirecionar" href="{% url 'detail' produto.tipoDeProduto|slugify produto.pk %}">
-                    <i class="fas fa-shopping-cart text-light"></i>
-                    REDIRECIONAR
+            <div class="detail-btn-container">
+                <a href="{{ produto_especifico.link }}" target="_blank" class="detail-btn">
+                    <i class="fas fa-shopping-cart"></i> REDIRECIONAR
                 </a>
             </div>
-            {% endfor %}
-            <button class="scroll-btn right" data-target="relacionados-scroll">
-                <img class="arrow" src="{% static 'home/img/arrow-right-circle.svg' %}" alt="setinha">
-            </button>
         </div>
     </div>
+    {% if produtos_relacionado and produtos_relacionado|length > 0 %}
+    <div class="detail-related">
+        <div class="detail-related-title">
+            <i class="fas fa-tags"></i> PRODUTOS RELACIONADOS
+        </div>
+        <div class="detail-related-list">
+            <div class="section-details-wrapper">
+                <button class="scroll-btn-details left" data-target="relacionados-scroll">
+                    <img class="arrow" src="{% static 'home/img/arrow-left.svg' %}" alt="setinha">
+                </button>
+                <div class="section-details" id="relacionados-scroll">
+                    {% for produto in produtos_relacionado %}
+                    <div class="produto">
+                        <a class="produto-details" href="{% url 'detail' produto.tipoDeProduto produto.pk %}">
+                            <div class="img-container">
+                                {% if produto.imagem %}
+                                <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+                                {% else %}
+                                <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
+                                {% endif %}
+                                <span class="porcentagem-desconto">-{{ produto.desconto }}% OFF</span>
+                            </div>
+                            <p class="nome-produto">{{ produto.nome }}</p>
+                            <p class="preco-normal">{{ produto.preco_normal_formatado }}</p>
+                            <p class="preco-desconto">{{ produto.preco_desconto_formatado }}</p>
+                        </a>
+                        <a class="btn-redirecionar" href="{% url 'detail' produto.tipoDeProduto produto.pk %}">
+                            <i class="fas fa-shopping-cart text-light"></i>
+                            REDIRECIONAR
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="scroll-btn-details right" data-target="relacionados-scroll">
+                    <img class="arrow" src="{% static 'home/img/arrow-right.svg' %}" alt="setinha">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
     <script>
         const zoomContainer = document.getElementById('zoom-container');
         const zoomImg = document.getElementById('zoom-img');
@@ -111,7 +122,7 @@
     </script>
 
     <script>
-        document.querySelectorAll('.scroll-btn').forEach(btn => {
+        document.querySelectorAll('.scroll-btn-details').forEach(btn => {
             btn.addEventListener('click', function () {
                 const targetId = btn.getAttribute('data-target');
                 const scrollContainer = document.getElementById(targetId);
