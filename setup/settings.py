@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'setup',
     'home',
     'account',
+    'pc_build',
 ]
 
 MIDDLEWARE = [

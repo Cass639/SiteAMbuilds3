@@ -19,11 +19,11 @@
     margin-bottom: 24px;
 }
 
-.detail-breadcrumb a {
-    color: #22282C;
-    text-decoration: none;
+.breadcrumb-categoria {
     font-size: 1.1rem;
     font-weight: 500;
+    color: #1E2A38;
+    text-decoration: none;
 }
 
 .detail-breadcrumb span {
@@ -37,14 +37,6 @@
     text-decoration: none;
     font-size: 1.1rem;
     font-weight: 500;
-}
-
-.detail-breadcrumb button {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    margin-right: 12px;
 }
 
 .detail-main {
@@ -74,6 +66,16 @@
     margin-bottom: 18px;
     
     height: fit-content;
+}
+
+.breadcrumb-back {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-right: 12px;
+    text-decoration: none;
+    color: #000;
 }
 
 .detail-img {

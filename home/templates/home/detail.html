@@ -7,11 +7,13 @@
 
 <div class="detail-container">
     <div class="detail-breadcrumb">
-        <button onclick="window.history.back()"><i class="fas fa-arrow-left"></i></button>
+        <a href="{% url 'category' produto_especifico.tipoDeProduto %}" class="breadcrumb-back">
+            <i class="fas fa-arrow-left"></i>
+        </a>
         <span>
             Você está em:
         </span>
-        <a href="{% url 'category' produto_especifico.tipoDeProduto %}">
+        <a href="{% url 'category' produto_especifico.tipoDeProduto %}" class="breadcrumb-categoria">
             {{ produto_especifico.tipoDeProduto }}
         </a>
         &nbsp;>&nbsp;
@@ -21,12 +23,12 @@
         <div class="detail-img-side">
             <h2>{{ produto_especifico.nome }}</h2>
             <div class="detail-img-zoom" id="zoom-container">
-                    {% if produto_especifico.imagem %}
-                     <img src="{{ produto_especifico.imagem.url }}" alt="{{ produto_especifico.nome }}" class="detail-img"
+                {% if produto_especifico.imagem %}
+                <img src="{{ produto_especifico.imagem.url }}" alt="{{ produto_especifico.nome }}" class="detail-img"
                     id="zoom-img">
-                    {% else %}
-                    <img class="detail-img" src="https://placehold.co/600x400" alt="Sem imagem" id="zoom-img">
-                    {% endif %}
+                {% else %}
+                <img class="detail-img" src="https://placehold.co/600x400" alt="Sem imagem" id="zoom-img">
+                {% endif %}
             </div>
         </div>
         <div class="detail-info-side">

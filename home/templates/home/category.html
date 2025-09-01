@@ -7,15 +7,15 @@
 
 <main class="background">
     <div class="detail-breadcrumb categoria-breadcrumb">
-        <button onclick="window.history.back()" class="breadcrumb-back">
+        <a href="{% url 'index' %}" class="breadcrumb-back">
             <i class="fas fa-arrow-left"></i>
-        </button>
+        </a>
         <span>
             <strong class="breadcrumb-title">Você está em:</strong>
             <span class="breadcrumb-categoria">{{ tipo }}</span>
         </span>
         <button class="breadcrumb-filter">
-            <i class="fas fa-filter"></i> <!-- Ou use um SVG de filtro -->
+            <i class="fas fa-filter"></i>
             Filtro
         </button>
     </div>

@@ -1,0 +1,73 @@
+:root {
+    --light-blue: #2C5497;
+    --dark: #1E2A38;
+}
+
+.navbar {
+    background-color: var(--dark);
+    border-bottom: 2px solid var(--light-blue);
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 15px 20px;
+}
+
+.navbar strong {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+.logo {
+    width: 100px;
+}
+
+.login_redirect {
+    display: flex;
+    align-items: center;
+    color: white;
+    margin-right: 10px;
+}
+
+.right_icon {
+    display: flex;
+    color: #fff;
+    font-size: 2rem;
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+.right_text {
+    color: #fff;
+    margin-left: -5px;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: #0F1D33;
+    width: 100vw;
+    height: 350px;
+    gap: 10px 20px;
+    padding: 0px 50px;
+    position: fixed;
+    bottom: 0;
+}
+
+.footer-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px #bad1e2;
+    width: 100px;
+    height: 40px;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    gap: 5px;
+    z-index: 2;
+}

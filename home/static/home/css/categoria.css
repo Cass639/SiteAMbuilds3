@@ -24,6 +24,8 @@
     font-size: 1.5rem;
     cursor: pointer;
     margin-right: 12px;
+    text-decoration: none;
+    color: #000;
 }
 
 .breadcrumb-title {
@@ -35,7 +37,7 @@
 .breadcrumb-categoria {
     font-size: 1.1rem;
     font-weight: 500;
-    color: #1E2A38;
+    color: #22282C;
     padding-right: 1500px;
 }
 
@@ -43,7 +45,7 @@
     background: none;
     border: none;
     font-size: 1.1rem;
-    color: #1E2A38;
+    color: #22282C;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -154,5 +156,5 @@
 }   
 
 .btn-redirecionar:hover {
-    background: #1E2A38;
+    background: #22282C;
 }
