@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block page_content %}
+<link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+
+
+<body>
+    <main>
+        <div class="banner">
+            <img class="banner-image" src="{% static 'home/img/banner.png' %}" alt="Banner">
+            <h1 class="banner-slogan">Monte seu PC agora mesmo</h1>
+            <p class="banner-paragraph">Escolhas as peças ideais e tenha desempenho máximo com os melhores preços e
+                garantia de compatibilidade.</p>
+            <a class="btn_Pc" href="{% url 'pc_build' %}">
+                <span>MONTE SEU PC</span>
+                <img class="arrow" src="{% static 'home/img/arrow-right-circle.svg' %}" alt="setinha">
+            </a>
+        </div>
+
+        <div class="components-wrapper">
+            <span class="components-title">
+                CATEGORIAS
+                <img class="arrow" src="{% static 'home/img/arrow-right-circle.svg' %}" alt="setinha">
+            </span>
+
+            <button class="scroll-btn left" data-target="components-scroll">
+                <img class="arrow" src="{% static 'home/img/arrow-left-circle.svg' %}" alt="setinha">
+            </button>
+
+            <div class="components" id="components-scroll">
+                {% for categoria in categorias %}
+                <a class="categoria" href="{% url 'category' categoria.nome %}">
+                    <img src="{{ categoria.img }}" alt="{{ categoria.nome }}">
+                    <p class="categoria_text">{{ categoria.nome }}</p>
+                </a>
+                {% endfor %}
+            </div>
+
+            <button class="scroll-btn right" data-target="components-scroll">
+                <img class="arrow" src="{% static 'home/img/arrow-right-circle.svg' %}" alt="setinha">
+            </button>
+        </div>
+
+        {% include "home/_produtos_section.html" with titulo="NOVAS PROMOÇÕES" produtos=produtos_novos scroll_id="novas-scroll" %}
+        {% include "home/_produtos_section.html" with titulo="MAIS ACESSADOS" produtos=produtos_random scroll_id="mais_acessados-scroll" %}
+        {% include "home/_produtos_section.html" with titulo="PATROCINADOS" produtos=produtos_random scroll_id="patrocinados-scroll" %}
+        {% include "home/_produtos_section.html" with titulo="PC GAMERS" produtos=modelos_pc scroll_id="pcgamer-scroll" %}
+
+
+    </main>
+    <script>
+        document.querySelectorAll('.scroll-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const targetId = btn.getAttribute('data-target');
+                const scrollContainer = document.getElementById(targetId);
+                if (!scrollContainer) return;
+                const direction = btn.classList.contains('left') ? -200 : 200;
+                scrollContainer.scrollBy({
+                    left: direction,
+                    behavior: "smooth"
+                });
+            });
+        });
+    </script>
+</body>
+{% endblock page_content %}

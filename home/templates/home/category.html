@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_content %}
+<link rel="stylesheet" href="{% static 'home/css/categoria.css' %}">
+<link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+
+<main class="background">
+    <div class="detail-breadcrumb categoria-breadcrumb">
+        <a href="{% url 'index' %}" class="breadcrumb-back">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <span>
+            <strong class="breadcrumb-title">Você está em:</strong>
+            <span class="breadcrumb-categoria">{{ tipo }}</span>
+        </span>
+        <button class="breadcrumb-filter">
+            <i class="fas fa-filter"></i>
+            Filtro
+        </button>
+    </div>
+    <div class="section" id="pcgamer-scroll">
+        <div class="produtos-grid">
+            {% for produto in produtos %}
+            <div class="produto">
+                <a class="produto-details" href="{% url 'detail' produto.tipoDeProduto produto.pk %}">
+                    <div class="img-container">
+                        {% if produto.imagem %}
+                        <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+                        {% else %}
+                        <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
+                        {% endif %}
+                        <span class="porcentagem-desconto">-{{ produto.desconto }}% OFF</span>
+                    </div>
+                    <p class="nome-produto">{{ produto.nome }}</p>
+                    <p class="preco-normal">{{ produto.preco_normal_formatado }}</p>
+                    <p class="preco-desconto">{{ produto.preco_desconto_formatado }}</p>
+                </a>
+                <a class="btn-redirecionar" href="{% url 'detail' produto.tipoDeProduto produto.pk %}">
+                    <i class="fas fa-shopping-cart text-light"></i>
+                    REDIRECIONAR
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

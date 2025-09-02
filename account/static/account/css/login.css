@@ -1,0 +1,193 @@
+@keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+    100% { transform: translateX(0); }
+}
+
+.background {
+    background-color: #081d2b;
+    width: 100%;
+    height: 100%;
+}
+
+.main-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-top: 9%;
+    gap: 10%;
+}
+
+.register-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 9%;
+    gap: 20px;
+}
+
+.title {
+    color: #FFFFFF;
+    text-align: center;
+    text-decoration: none;
+    font-size: 2rem;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.form-field {
+    width: 600px;
+    padding: 16px 40px 16px 40px;
+    border-radius: 12px;
+    border: none;
+    background-color: #fff;
+    font-size: 18px;
+    color: #222;
+}
+
+.input-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 1.2rem;
+    color: #b7bbc2;
+}
+
+.input-icon-right {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    cursor: pointer;
+    text-decoration: none;
+    color: #b7bbc2;
+}
+
+
+.formCheck {
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: fit-content;
+
+}
+
+/* Alinha o checkbox e o link de reset na mesma linha */
+
+.login-options-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+}
+
+.login-options-row .form-check-label {
+    color: white;
+    font-size: 1em;
+}
+
+.forgot-link {
+    font-size: 1rem;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+.login-btn-row {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.login_btn {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 1.3rem;
+    background-color: #A1C3E3;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 50%;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+}
+
+/* Mensagem de erro do login */
+.login-error-message {
+    color: red;
+    font-weight: 500;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.1rem;
+    min-height: 30px;
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    transition: opacity 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+}
+
+.login-message {
+    color: rgb(9, 180, 9);
+    font-weight: 500;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.1rem;
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    transition: opacity 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+}
+
+.register_text {
+    color: white;
+    font-size: 1rem;
+    margin-top: 10px;
+        min-height: 40px; /* Reservar espaço fixo para a mensagem de erro */
+}
+
+.signup-link {
+    color: #A1C3E3;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}

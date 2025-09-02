@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_content %}
+<link rel="stylesheet" href="{% static 'home/css/detail.css' %}">
+<link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+
+<div class="detail-container">
+    <div class="detail-breadcrumb">
+        <a href="{% url 'category' produto_especifico.tipoDeProduto %}" class="breadcrumb-back">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <span>
+            Você está em:
+        </span>
+        <a href="{% url 'category' produto_especifico.tipoDeProduto %}" class="breadcrumb-categoria">
+            {{ produto_especifico.tipoDeProduto }}
+        </a>
+        &nbsp;>&nbsp;
+        <span class="span2">{{ produto_especifico.nome }}</span>
+    </div>
+    <div class="detail-main">
+        <div class="detail-img-side">
+            <h2>{{ produto_especifico.nome }}</h2>
+            <div class="detail-img-zoom" id="zoom-container">
+                {% if produto_especifico.imagem %}
+                <img src="{{ produto_especifico.imagem.url }}" alt="{{ produto_especifico.nome }}" class="detail-img"
+                    id="zoom-img">
+                {% else %}
+                <img class="detail-img" src="https://placehold.co/600x400" alt="Sem imagem" id="zoom-img">
+                {% endif %}
+            </div>
+        </div>
+        <div class="detail-info-side">
+            <div class="detail-seller">
+                Vendido e entregue por: <strong>{{ produto_especifico.loja }}</strong>
+            </div>
+            <div class="detail-price">
+                <p class="detail-preco-normal">{{ produto_especifico.preco_normal_formatado }}</p>
+                <p class="detail-preco-desconto">{{ produto_especifico.preco_desconto_formatado }}</p>
+                <span class="detail-porcentagem-desconto">-{{ produto_especifico.desconto }}% OFF</span>
+            </div>
+            <div class="description">
+                <span>
+                    Descrição:
+                </span>
+                <p class="detail-list">
+                    {{ produto_especifico.descricao }}
+                </p>
+            </div>
+            {% if produto_especifico.cupom %}
+            <span class="detail-coupon">
+                Cupom: {{ produto_especifico.cupom }}
+            </span>
+            {% endif %}
+            <div class="detail-btn-container">
+                <a href="{{ produto_especifico.link }}" target="_blank" class="detail-btn">
+                    <i class="fas fa-shopping-cart"></i> REDIRECIONAR
+                </a>
+            </div>
+        </div>
+    </div>
+    {% if produtos_relacionado and produtos_relacionado|length > 0 %}
+    <div class="detail-related">
+        <div class="detail-related-title">
+            <i class="fas fa-tags"></i> PRODUTOS RELACIONADOS
+        </div>
+        <div class="detail-related-list">
+            <div class="section-details-wrapper">
+                <button class="scroll-btn-details left" data-target="relacionados-scroll">
+                    <img class="arrow" src="{% static 'home/img/arrow-left.svg' %}" alt="setinha">
+                </button>
+                <div class="section-details" id="relacionados-scroll">
+                    {% for produto in produtos_relacionado %}
+                    <div class="produto">
+                        <a class="produto-details" href="{% url 'detail' produto.tipoDeProduto produto.pk %}">
+                            <div class="img-container">
+                                {% if produto.imagem %}
+                                <img class="image-produto" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+                                {% else %}
+                                <img class="image-produto" src="https://placehold.co/600x400" alt="Sem imagem">
+                                {% endif %}
+                                <span class="porcentagem-desconto">-{{ produto.desconto }}% OFF</span>
+                            </div>
+                            <p class="nome-produto">{{ produto.nome }}</p>
+                            <p class="preco-normal">{{ produto.preco_normal_formatado }}</p>
+                            <p class="preco-desconto">{{ produto.preco_desconto_formatado }}</p>
+                        </a>
+                        <a class="btn-redirecionar" href="{% url 'detail' produto.tipoDeProduto produto.pk %}">
+                            <i class="fas fa-shopping-cart text-light"></i>
+                            REDIRECIONAR
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="scroll-btn-details right" data-target="relacionados-scroll">
+                    <img class="arrow" src="{% static 'home/img/arrow-right.svg' %}" alt="setinha">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+    <script>
+        const zoomContainer = document.getElementById('zoom-container');
+        const zoomImg = document.getElementById('zoom-img');
+
+        zoomContainer.addEventListener('mousemove', function (e) {
+            const rect = zoomContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left; // posição X do mouse dentro do container
+            const y = e.clientY - rect.top;  // posição Y do mouse dentro do container
+
+            const xPercent = x / rect.width * 100;
+            const yPercent = y / rect.height * 100;
+
+            zoomImg.style.transformOrigin = `${xPercent}% ${yPercent}%`;
+            zoomImg.style.transform = "scale(2)";
+        });
+
+        zoomContainer.addEventListener('mouseleave', function () {
+            zoomImg.style.transformOrigin = "center center";
+            zoomImg.style.transform = "scale(1)";
+        });
+    </script>
+
+    <script>
+        document.querySelectorAll('.scroll-btn-details').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const targetId = btn.getAttribute('data-target');
+                const scrollContainer = document.getElementById(targetId);
+                if (!scrollContainer) return;
+                const direction = btn.classList.contains('left') ? -200 : 200;
+                scrollContainer.scrollBy({
+                    left: direction,
+                    behavior: "smooth"
+                });
+            });
+        });
+    </script>
+    {% endblock %}

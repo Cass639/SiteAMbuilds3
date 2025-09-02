@@ -1,0 +1,117 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faça o login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'account/css/login.css' %}">
+</head>
+
+<body class="background">
+    <main class="register-container">
+        <h1 class="title">Crie sua conta</h1>
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <div class="input-container">
+                <span class="input-icon">
+                    <i class="fas fa-user"></i>
+                </span>
+                {{ form.login }}
+            </div>
+            <div class="input-container">
+                <span class="input-icon">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                {{ form.email }}
+            </div>
+            <div class="input-container">
+                <span class="input-icon">
+                    <i class="fas fa-lock"></i>
+                </span>
+                {{ form.password }}
+            </div>
+            <div class="input-container">
+                <span class="input-icon">
+                    <i class="fas fa-lock"></i>
+                </span>
+                {{ form.reenter_password }}
+            </div>
+            <div class="login-btn-row">
+                <button type="submit" class="login_btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" fill="currentColor" class="bi bi-person-plus"
+                        viewBox="0 0 16 16">
+                        <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" />
+                        <path fill-rule="evenodd"
+                            d="M6 9a5 5 0 0 0-4.546 2.914.5.5 0 0 0 .832.554A4 4 0 0 1 6 10a4 4 0 0 1 3.714 2.468.5.5 0 0 0 .832-.554A5 5 0 0 0 6 9z" />
+                        <path fill-rule="evenodd"
+                            d="M13.5 5.5a.5.5 0 0 1 .5.5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 .5-.5z" />
+                    </svg>
+                    Criar conta
+                </button>
+                <span class="register_text">
+                    Já possui uma conta?
+                    <a href="{% url 'login' %}" class="signup-link">Entrar</a>
+                </span>
+            </div>
+            <div class="login-error-message" id="loginErrorMsg">
+                {% if messages.error %}
+                {% for message in messages.error %}
+                {{ message }}
+                {% endfor %}
+                {% endif %}
+            </div>
+            <div class="login-message" id="loginErrorMsg">
+                {% if messages %}
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+                {% endif %}
+            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var errorMsg = document.getElementById('loginErrorMsg');
+                    if (errorMsg && errorMsg.textContent.trim() !== "") {
+                        setTimeout(function () {
+                            errorMsg.style.opacity = '0';
+                        }, 10000);
+                    } else if (errorMsg) {
+                        errorMsg.style.opacity = '1';
+                    }
+                });
+            </script>
+        </form>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const togglePassword = document.getElementById('togglePassword');
+        const togglePasswordIcon = document.getElementById('togglePasswordIcon');
+        // Tenta encontrar o input de senha pelo nome do campo do form
+        const passwordInput = document.querySelector('input[type="password"]');
+        if (togglePassword && togglePasswordIcon && passwordInput) {
+            togglePassword.addEventListener('click', function (e) {
+                e.preventDefault();
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    togglePasswordIcon.classList.remove('fa-eye-slash');
+                    togglePasswordIcon.classList.add('fa-eye');
+                } else {
+                    passwordInput.type = 'password';
+                    togglePasswordIcon.classList.remove('fa-eye');
+                    togglePasswordIcon.classList.add('fa-eye-slash');
+                }
+            });
+        }
+    });
+</script>
+
+</html>
